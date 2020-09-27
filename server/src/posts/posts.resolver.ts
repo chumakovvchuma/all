@@ -3,7 +3,7 @@ import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
 import { PubSub } from 'apollo-server-express';
 import { NewPostInput } from './dto/new-Post.input';
 import { PostsArgs } from './dto/Posts.args';
-import { Post } from './models/Post.model';
+import { Post } from './models/posts.model';
 import { PostsService } from './Posts.service';
 
 const pubSub = new PubSub();

@@ -2,7 +2,7 @@ import { Field, InputType } from '@nestjs/graphql';
 import { IsOptional, Length, MaxLength } from 'class-validator';
 
 @InputType()
-export class NewPostInput {
+export class NewCommentInput {
   @Field()
   @MaxLength(30)
   text: string;

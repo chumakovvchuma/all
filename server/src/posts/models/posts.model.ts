@@ -1,4 +1,6 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { User } from '../../users/models/users.model';
+import { Comment } from '../../comments/models/comments.model';
 
 @ObjectType()
 export class Post {
@@ -6,14 +8,14 @@ export class Post {
   id: string;
 
   @Field()
-  title: string;
+  text: string;
 
-  @Field({ nullable: true })
-  description?: string;
+  @Field(type => [User])
+  author: User[];
+
+  @Field(type => [Comment])
+  comments: Comment[];
 
   @Field()
   creationDate: Date;
-
-  @Field(type => [String])
-  ingredients: string[];
 }

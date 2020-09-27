@@ -2,33 +2,55 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Recipe {
+type Comment {
   id: ID!
-  title: String!
-  description: String
+  text: String!
+  author: String
+  comments: [String!]!
   creationDate: Date!
-  ingredients: [String!]!
 }
 
 """Date custom scalar type"""
 scalar Date
 
+type User {
+  id: ID!
+  email: String!
+  role: [UserRole!]!
+  comments: [Comment!]!
+  posts: [Post!]!
+  creationDate: Date!
+}
+
+enum UserRole {
+  AUTHOR
+  ADMIN
+}
+
+type Post {
+  id: ID!
+  text: String!
+  author: [User!]!
+  comments: [Comment!]!
+  creationDate: Date!
+}
+
 type Query {
-  recipe(id: String!): Recipe!
-  recipes(skip: Int = 0, take: Int = 25): [Recipe!]!
+  Post(id: String!): Post!
+  Posts(skip: Int = 0, take: Int = 25): [Post!]!
 }
 
 type Mutation {
-  addRecipe(newRecipeData: NewRecipeInput!): Recipe!
-  removeRecipe(id: String!): Boolean!
+  addPost(newPostData: NewPostInput!): Post!
+  removePost(id: String!): Boolean!
 }
 
-input NewRecipeInput {
-  title: String!
+input NewPostInput {
+  text: String!
   description: String
   ingredients: [String!]!
 }
 
 type Subscription {
-  recipeAdded: Recipe!
+  PostAdded: Post!
 }
