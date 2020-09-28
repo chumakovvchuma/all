@@ -18,9 +18,7 @@ type User {
   email: String!
   name: String!
   role: UserRole!
-  creationDate: Date!
   comment: [Comment!]!
-  author: [Post!]!
 }
 
 enum UserRole {
