@@ -14,7 +14,7 @@ export class Post {
   author: User[];
 
   @Field(type => [Comment])
-  comments: Comment[];
+  comments: Comment[]; 
 
   @Field()
   creationDate: Date;
