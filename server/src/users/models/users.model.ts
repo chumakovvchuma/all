@@ -29,7 +29,7 @@ export class User {
   @Column({ length: 500, nullable: false })
   name: string;
 
-  @Field(type => [UserRole])
+  @Field(type => UserRole)
   role: UserRole;
 
   // @Field(type => Comment, { nullable: true })
@@ -37,20 +37,16 @@ export class User {
   // comment: Comment;
 
 
-  @OneToMany(type => Comment, comment => comment.user)
+  @OneToMany(type => Comment, comment => comment.author)
   comment: Comment[];
 
-  @Column(type => Post)
-  @Field(type => Post)
-  posts: Post[];
+  
+  @OneToMany(type => Post, post => post.author)
+  author: Post[];
+
 
   @CreateDateColumn()
   @Field()
   creationDate: Date;
 
-  // @ManyToOne(type => User, user => user.childUser)
-  // parentUser: User;
-
-  // @OneToMany(type => User, user => user.parentUser)
-  // childUser: User[];
 }

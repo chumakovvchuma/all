@@ -1,4 +1,5 @@
-import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Render, Request, UseGuards } from '@nestjs/common';
+import { AppService, MainService } from './app.service';
 import { AuthService } from './auth/auth.service';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { LocalAuthGuard } from './auth/guards/local-auth.guard';
@@ -17,5 +18,14 @@ export class AppController {
   @Get('profile')
   getProfile(@Request() req) {
     return req.user;
+  }
+}
+@Controller('main')
+export class MainController {
+  constructor(private mainService: MainService) {}
+  @Get()
+  @Render('main')
+  root() {
+    return { message: 'Hello world!' };
   }
 }
