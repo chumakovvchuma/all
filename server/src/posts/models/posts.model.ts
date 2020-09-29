@@ -11,6 +11,7 @@ import {
   JoinColumn,
   OneToMany,
   ManyToOne,
+  OneToOne,
 } from "typeorm";
 
 @Entity()
@@ -24,13 +25,9 @@ export class Post {
   @Column({ length: 500, nullable: false })
   text: string;
 
-  @ManyToOne((type) => User, (author) => author.id)
+  @OneToOne((type) => User, (author) => author.id)
   author: User;
 
   @OneToMany((type) => Comment, (comment) => comment.id)
   comment: Comment[];
-
-  @CreateDateColumn()
-  @Field()
-  creationDate: Date;
 }

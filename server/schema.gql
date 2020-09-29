@@ -5,13 +5,9 @@
 type Comment {
   id: ID!
   text: String!
-  creationDate: Date!
   author: User!
   post: Post!
 }
-
-"""Date custom scalar type"""
-scalar Date
 
 type User {
   id: ID!
@@ -19,6 +15,7 @@ type User {
   name: String!
   role: UserRole!
   comment: [Comment!]!
+  post: [Post!]!
 }
 
 enum UserRole {
@@ -29,7 +26,6 @@ enum UserRole {
 type Post {
   id: ID!
   text: String!
-  creationDate: Date!
   author: User!
   comment: [Comment!]!
 }

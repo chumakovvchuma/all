@@ -44,8 +44,11 @@ export class User {
   })
   role: UserRole;
 
-  @OneToMany((type) => Comment, (comment) => comment.author)
+  @OneToMany((type) => Comment, (comment) => comment.id)
   comment: Comment[];
+
+  @OneToMany((type) => Post, (post) => post.id)
+  post: Post[];
 
   // @CreateDateColumn()
   // @Field()
