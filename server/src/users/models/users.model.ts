@@ -35,6 +35,10 @@ export class User {
 
   @Field()
   @Column({ length: 500, nullable: true })
+  password: string;
+
+  @Field()
+  @Column({ length: 500, nullable: true })
   name: string;
 
   @Column({
