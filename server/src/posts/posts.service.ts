@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
-import { NewPostInput } from './dto/new-Post.input';
-import { PostsArgs } from './dto/Posts.args';
-import { Post } from './models/Posts.model';
+import { Injectable } from "@nestjs/common";
+import { NewPostInput } from "./dto/new-post.input";
+import { PostsArgs } from "./dto/posts.args";
+import { Post } from "./models/posts.model";
 
 @Injectable()
 export class PostsService {

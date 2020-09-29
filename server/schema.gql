@@ -33,14 +33,22 @@ type Post {
 type Query {
   Post(id: String!): Post!
   Posts(skip: Int = 0, take: Int = 25): [Post!]!
+  Comment(id: String!): Comment!
+  Comments(skip: Int = 0, take: Int = 25): [Comment!]!
 }
 
 type Mutation {
   addPost(newPostData: NewPostInput!): Post!
   removePost(id: String!): Boolean!
+  addComment(newCommentData: NewCommentInput!): Comment!
+  removeComment(id: String!): Boolean!
 }
 
 input NewPostInput {
+  text: String!
+}
+
+input NewCommentInput {
   text: String!
   description: String
   ingredients: [String!]!
@@ -48,4 +56,5 @@ input NewPostInput {
 
 type Subscription {
   PostAdded: Post!
+  CommentAdded: Comment!
 }

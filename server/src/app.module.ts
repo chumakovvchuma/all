@@ -9,12 +9,14 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { CommentsModule } from "./comments/comments.module";
 import { ServeStaticModule } from "@nestjs/serve-static";
 import { join } from "path";
+import { LoggingPlugin } from "./common/plugins/logging.plugin";
 
 @Module({
   imports: [
     AuthModule,
     UsersModule,
     PostsModule,
+    CommentsModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, "", "client"),
     }),
@@ -32,12 +34,12 @@ import { join } from "path";
       username: "chumakovv",
       password: "chumakovv",
       database: "postgres",
-      entities: ["dist/**/*.model.js"],
+      entities: ["dist/**/*.model.js", "dist/entities/*.js"],
       synchronize: true,
       logging: true,
     }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, LoggingPlugin],
 })
 export class AppModule {}
