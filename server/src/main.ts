@@ -7,7 +7,11 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: ["debug", "log", "error", "warn", "verbose"],
   });
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(
+    new ValidationPipe({
+      skipMissingProperties: true,
+    })
+  );
 
   await app.listen(4000);
   console.log(`Application is running on: ${await app.getUrl()}`);

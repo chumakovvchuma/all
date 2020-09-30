@@ -1,3 +1,4 @@
+import { LoginPageModule } from "./page/loginpage.module";
 import { Module } from "@nestjs/common";
 import { GraphQLModule } from "@nestjs/graphql";
 import { AppController } from "./app.controller";
@@ -13,13 +14,14 @@ import { LoggingPlugin } from "./common/plugins/logging.plugin";
 
 @Module({
   imports: [
+    LoginPageModule,
     AuthModule,
     UsersModule,
     PostsModule,
     CommentsModule,
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, "", "client"),
-    }),
+    // ServeStaticModule.forRoot({
+    //   rootPath: join(__dirname, "", "client"),
+    // }),
     GraphQLModule.forRoot({
       installSubscriptionHandlers: true,
       autoSchemaFile: "schema.gql",
