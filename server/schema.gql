@@ -3,25 +3,25 @@
 # ------------------------------------------------------
 
 type Post {
-  id: ID!
+  userId: String!
   text: String!
-  author: User!
-  comment: [Comment!]!
+  author: String!
+  comments: [Comment!]!
 }
 
 type Comment {
-  id: ID!
+  userId: String!
   text: String!
   author: User!
   post: Post!
 }
 
 type User {
-  id: ID!
+  userId: String!
   email: String!
   name: String!
   role: UserRole!
-  comment: [Comment!]!
+  comments: [Comment!]!
   post: [Post!]!
 }
 
@@ -31,6 +31,7 @@ enum UserRole {
 }
 
 type Login {
+  userId: String!
   email: String!
   password: String!
 }

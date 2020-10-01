@@ -17,7 +17,10 @@ import {
 @Entity()
 @ObjectType()
 export class Login {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn("uuid")
+  @OneToMany((type) => Login, (id) => id.userId)
+  userId: string;
+
   @OneToOne((type) => User, (user) => user.email)
   email: string;
 

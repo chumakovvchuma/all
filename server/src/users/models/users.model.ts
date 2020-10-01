@@ -12,8 +12,10 @@ import {
   JoinColumn,
   OneToMany,
   ManyToOne,
+  PrimaryColumn,
 } from "typeorm";
 import { Exclude, Transform } from "class-transformer/decorators";
+import { Login } from "src/auth/models/login.model";
 
 enum UserRole {
   AUTHOR,
@@ -27,9 +29,10 @@ registerEnumType(UserRole, {
 @Entity()
 @ObjectType()
 export class User {
-  @Field((type) => ID)
-  @PrimaryGeneratedColumn("uuid")
-  id: string;
+  @PrimaryColumn()
+  @Field()
+  @ManyToOne((type) => Login, (userId) => userId)
+  userId: string;
 
   @Field()
   @Column({ length: 500, nullable: true })
@@ -51,10 +54,10 @@ export class User {
   })
   role: UserRole;
 
-  @OneToMany((type) => Comment, (comment) => comment.id)
-  comment: Comment[];
+  @OneToMany((type) => Comment, (comments) => comments.author)
+  comments: Comment[];
 
-  @OneToMany((type) => Post, (post) => post.id)
+  @OneToMany((type) => Post, (post) => post.author)
   post: Post[];
 
   // @Field()

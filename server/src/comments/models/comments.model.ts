@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import { Field, ID, ObjectType } from "@nestjs/graphql";
 import { Post } from "../../posts/models/posts.model";
 import {
@@ -10,20 +11,25 @@ import {
   UpdateDateColumn,
   OneToMany,
   ManyToOne,
+  PrimaryColumn,
+  JoinTable,
 } from "typeorm";
 import { User } from "../../users/models/users.model";
+import { Login } from "../../auth/models/login.model";
 
 @Entity()
 @ObjectType()
 export class Comment {
-  @Field((type) => ID)
-  @PrimaryGeneratedColumn("uuid")
-  id: string;
+  @PrimaryColumn()
+  @Field()
+  @ManyToOne((type) => Login, (userId) => userId)
+  userId: string;
 
-  @OneToOne((type) => User, (user) => user.id)
+  @OneToMany((type) => Login, (author) => author.userId)
   author: User;
 
-  @ManyToOne((type) => Post, (post) => post.id)
+  @ManyToOne((type) => Post)
+  @JoinTable()
   post: Post;
 
   @Field()
