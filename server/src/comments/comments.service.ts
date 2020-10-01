@@ -1,12 +1,11 @@
-import { Injectable } from '@nestjs/common';
-import { NewCommentInput } from './dto/new-comment.input';
-import { CommentsArgs } from './dto/comments.args';
-import { Comment } from './models/comments.model';
+import { Injectable } from "@nestjs/common";
+import { NewCommentDTO } from "./dto/new-comment.dto";
+import { CommentsArgs } from "./dto/comments.args";
+import { Comment } from "./models/comments.model";
 
 @Injectable()
 export class CommentsService {
-
-  async create(data: NewCommentInput): Promise<Comment> {
+  async create(data: NewCommentDTO): Promise<Comment> {
     return {} as any;
   }
 

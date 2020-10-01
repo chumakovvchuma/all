@@ -1,7 +1,7 @@
 import { NotFoundException } from "@nestjs/common";
 import { Args, Mutation, Query, Resolver, Subscription } from "@nestjs/graphql";
 import { PubSub } from "apollo-server-express";
-import { NewPostInput } from "./dto/new-post.input";
+import { NewPostDTO } from "./dto/new-post.dto";
 import { PostsArgs } from "./dto/posts.args";
 import { Post } from "./models/posts.model";
 import { PostsService } from "./posts.service";
@@ -27,7 +27,7 @@ export class PostsResolver {
   }
 
   @Mutation((returns) => Post)
-  async addPost(@Args("newPostData") newPostData: NewPostInput): Promise<Post> {
+  async addPost(@Args("newPostData") newPostData: NewPostDTO): Promise<Post> {
     const Post = await this.PostsService.create(newPostData);
     pubSub.publish("PostAdded", { PostAdded: Post });
     return Post;

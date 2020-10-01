@@ -19,7 +19,6 @@ type Comment {
 type User {
   id: ID!
   email: String!
-  password: String!
   name: String!
   role: UserRole!
   comment: [Comment!]!
@@ -31,38 +30,52 @@ enum UserRole {
   ADMIN
 }
 
+type Login {
+  email: String!
+  password: String!
+}
+
 type Query {
-  User(id: String!): User!
-  Users(skip: Int = 0, take: Int = 25): [User!]!
+  Login(email: String!): Login!
+  Logins(skip: Int = 0, take: Int = 25): [Login!]!
   Post(id: String!): Post!
   Posts(skip: Int = 0, take: Int = 25): [Post!]!
+  User(id: String!): User!
+  Users(skip: Int = 0, take: Int = 25): [User!]!
   Comment(id: String!): Comment!
   Comments(skip: Int = 0, take: Int = 25): [Comment!]!
 }
 
 type Mutation {
+  addLogin(newLoginData: NewLoginDTO!): Login!
+  removeLogin(email: String!): Boolean!
+  addPost(newPostData: NewPostDTO!): Post!
+  removePost(id: String!): Boolean!
   addUser(newUserData: NewUserInput!): User!
   removeUser(id: String!): Boolean!
-  addPost(newPostData: NewPostInput!): Post!
-  removePost(id: String!): Boolean!
-  addComment(newCommentData: NewCommentInput!): Comment!
+  addComment(newCommentData: NewCommentDTO!): Comment!
   removeComment(id: String!): Boolean!
+}
+
+input NewLoginDTO {
+  email: String!
+  password: String!
+}
+
+input NewPostDTO {
+  text: String!
 }
 
 input NewUserInput {
   text: String!
 }
 
-input NewPostInput {
-  text: String!
-}
-
-input NewCommentInput {
+input NewCommentDTO {
   text: String!
 }
 
 type Subscription {
-  UserAdded: User!
   PostAdded: Post!
+  UserAdded: User!
   CommentAdded: Comment!
 }

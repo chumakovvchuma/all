@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { NewPostInput } from "./dto/new-post.input";
+import { NewPostDTO } from "./dto/new-post.dto";
 import { PostsArgs } from "./dto/posts.args";
 import { Post } from "./models/posts.model";
 
@@ -11,7 +11,7 @@ export class PostsService {
    * Left for demonstration purposes
    */
 
-  async create(data: NewPostInput): Promise<Post> {
+  async create(data: NewPostDTO): Promise<Post> {
     return {} as any;
   }
 

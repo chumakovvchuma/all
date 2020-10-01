@@ -1,7 +1,7 @@
 import { NotFoundException } from "@nestjs/common";
 import { Args, Mutation, Query, Resolver, Subscription } from "@nestjs/graphql";
 import { PubSub } from "apollo-server-express";
-import { NewCommentInput } from "./dto/new-comment.input";
+import { NewCommentDTO } from "./dto/new-comment.dto";
 import { CommentsArgs } from "./dto/comments.args";
 import { Comment } from "./models/comments.model";
 import { CommentsService } from "./comments.service";
@@ -28,7 +28,7 @@ export class CommentsResolver {
 
   @Mutation((returns) => Comment)
   async addComment(
-    @Args("newCommentData") newCommentData: NewCommentInput
+    @Args("newCommentData") newCommentData: NewCommentDTO
   ): Promise<Comment> {
     const Comment = await this.CommentsService.create(newCommentData);
     pubSub.publish("CommentAdded", { CommentAdded: Comment });

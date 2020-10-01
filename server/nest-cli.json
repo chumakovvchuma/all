@@ -6,7 +6,8 @@
         "options": {
           "introspectComments": true
         }
-      }
+      },
+      "@nestjs/swagger/plugin"
     ]
   }
 }
