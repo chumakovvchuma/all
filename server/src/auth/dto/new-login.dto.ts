@@ -7,12 +7,12 @@ export class NewLoginDTO {
   @PrimaryGeneratedColumn()
   userId: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsEmail()
   @Column()
   email: string;
 
   @Column()
-  @Field()
+  @Field({ nullable: true })
   password: string;
 }

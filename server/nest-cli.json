@@ -7,7 +7,13 @@
           "introspectComments": true
         }
       },
-      "@nestjs/swagger/plugin"
+      "@nestjs/swagger/plugin",
+      {
+        "name": "@nestjs/graphql/plugin",
+        "options": {
+          "typeFileNameSuffix": [".input.ts", ".args.ts", ".dto.ts"]
+        }
+      }
     ]
   }
 }

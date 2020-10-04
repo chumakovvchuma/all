@@ -2,6 +2,7 @@ import "reflect-metadata";
 import { ValidationPipe } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
+import * as bodyParser from 'body-parser';
 import {
   FastifyAdapter,
   NestFastifyApplication,
@@ -26,7 +27,7 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup("api", app, document);
-
+  app.use(bodyParser.json());
   await app.listen(4000);
   console.log(`Application is running on: ${await app.getUrl()}`);
 }

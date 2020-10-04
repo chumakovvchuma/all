@@ -1,6 +1,11 @@
 import { LoginModule } from "./auth/login.module";
 import { LoginPageModule } from "./page/loginpage.module";
-import { Module } from "@nestjs/common";
+import {
+  Module,
+  NestModule,
+  RequestMethod,
+  MiddlewareConsumer,
+} from "@nestjs/common";
 import { GraphQLModule } from "@nestjs/graphql";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
@@ -18,9 +23,12 @@ import { CommentsService } from "./comments/comments.service";
 import { PostsService } from "./posts/posts.service";
 import { LoginService } from "./auth/login.service";
 import { LoginResolver } from "./auth/login.resolver";
+import { PassportModule } from "@nestjs/passport";
+import { AuthenticationMiddleware } from "./authentication.middleware";
 
 @Module({
   imports: [
+    PassportModule.register({ session: true }),
     LoginModule,
     LoginPageModule,
     AuthModule,
@@ -61,4 +69,10 @@ import { LoginResolver } from "./auth/login.resolver";
     LoginResolver,
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer): void {
+    consumer
+      .apply(AuthenticationMiddleware)
+      .forRoutes({ path: "/**", method: RequestMethod.ALL });
+  }
+}

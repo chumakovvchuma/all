@@ -17,7 +17,7 @@ import {
 import { Exclude, Transform } from "class-transformer/decorators";
 import { Login } from "src/auth/models/login.model";
 
-enum UserRole {
+export enum UserRole {
   AUTHOR,
   ADMIN,
 }

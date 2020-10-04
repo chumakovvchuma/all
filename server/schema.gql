@@ -31,14 +31,15 @@ enum UserRole {
 }
 
 type Login {
-  userId: String!
   email: String!
   password: String!
+  userId: String!
 }
 
 type Query {
-  Login(email: String!): Login!
-  Logins(skip: Int = 0, take: Int = 25): [Login!]!
+  Login(password: String!, email: String!): Login!
+  whoAmI: Login!
+  Logins(skip: Int = 0, take: Int = 25): Login!
   Post(id: String!): Post!
   Posts(skip: Int = 0, take: Int = 25): [Post!]!
   User(id: String!): User!
@@ -59,8 +60,9 @@ type Mutation {
 }
 
 input NewLoginDTO {
-  email: String!
-  password: String!
+  email: String
+  password: String
+  userId: String!
 }
 
 input NewPostDTO {
