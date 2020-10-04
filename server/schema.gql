@@ -2,83 +2,43 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Post {
-  userId: String!
-  text: String!
-  author: String!
-  comments: [Comment!]!
-}
-
-type Comment {
-  userId: String!
-  text: String!
-  author: User!
-  post: Post!
-}
-
-type User {
-  userId: String!
-  email: String!
-  name: String!
-  role: UserRole!
-  comments: [Comment!]!
-  post: [Post!]!
-}
-
-enum UserRole {
-  AUTHOR
-  ADMIN
-}
-
-type Login {
-  email: String!
-  password: String!
-  userId: String!
-}
-
-type Query {
-  Login(password: String!, email: String!): Login!
-  whoAmI: Login!
-  Logins(skip: Int = 0, take: Int = 25): Login!
-  Post(id: String!): Post!
-  Posts(skip: Int = 0, take: Int = 25): [Post!]!
-  User(id: String!): User!
-  Users(skip: Int = 0, take: Int = 25): [User!]!
-  Comment(id: String!): Comment!
-  Comments(skip: Int = 0, take: Int = 25): [Comment!]!
+type AuthType {
+  accessToken: String!
+  refreshToken: String!
+  accessTokenExpiresAt: Float!
+  refreshTokenExpiresAt: Float!
 }
 
 type Mutation {
-  addLogin(newLoginData: NewLoginDTO!): Login!
-  removeLogin(email: String!): Boolean!
-  addPost(newPostData: NewPostDTO!): Post!
-  removePost(id: String!): Boolean!
-  addUser(newUserData: NewUserInput!): User!
-  removeUser(id: String!): Boolean!
-  addComment(newCommentData: NewCommentDTO!): Comment!
-  removeComment(id: String!): Boolean!
+  login(password: String!, email: String!): AuthType!
+  refreshToken(refreshToken: String!): AuthType!
+  logout(refreshToken: String!): Boolean!
+  signup(input: UserCreateInputType!): AuthType!
 }
 
-input NewLoginDTO {
-  email: String
-  password: String
-  userId: String!
+type Query {
+  profile: UserType!
+  listUsers: UserListType!
 }
 
-input NewPostDTO {
-  text: String!
+input UserCreateInputType {
+  email: String!
+  password: String!
+  roles: [UserRole!]!
 }
 
-input NewUserInput {
-  text: String!
+type UserListType {
+  list: [UserType!]!
+  count: Float!
 }
 
-input NewCommentDTO {
-  text: String!
+enum UserRole {
+  User
+  Admin
 }
 
-type Subscription {
-  PostAdded: Post!
-  UserAdded: User!
-  CommentAdded: Comment!
+type UserType {
+  id: Int!
+  email: String!
+  roles: [UserRole!]!
 }

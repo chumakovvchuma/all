@@ -1,31 +1,24 @@
-import { Module } from "@nestjs/common";
-import { JwtModule } from "@nestjs/jwt";
-import { PassportModule } from "@nestjs/passport";
-import { UsersModule } from "../users/users.module";
-import { AuthService } from "./auth.service";
-import { jwtConstants } from "./constants";
-import { LoginModule } from "./login.module";
-import { LoginResolver } from "./login.resolver";
-import { LoginService } from "./login.service";
-import { JwtStrategy } from "./strategies/jwt.strategy";
-import { LocalStrategy } from "./strategies/local.strategy";
+import {Module} from "@nestjs/common";
+import {PassportModule} from "@nestjs/passport";
+import {JwtModule} from "@nestjs/jwt";
+import {TypeOrmModule} from "@nestjs/typeorm";
+
+import {AuthService} from "./auth.service";
+import {UserModule} from "../user/user.module";
+import {AuthResolver} from "./auth.resolver";
+import {AuthEntity} from "./auth.entity";
+import {JwtStrategy} from "./strategies";
 
 @Module({
   imports: [
-    LoginModule,
-    PassportModule.register({ defaultStrategy: "jwt" }),
+    TypeOrmModule.forFeature([AuthEntity]),
+    UserModule,
+    PassportModule,
     JwtModule.register({
-      secret: jwtConstants.secret,
-      signOptions: { expiresIn: "1060s" },
+      secret: process.env.JWT_SECRET_KEY,
     }),
   ],
-  providers: [
-    AuthService,
-    LocalStrategy,
-    JwtStrategy,
-    LoginService,
-    LoginResolver,
-  ],
+  providers: [AuthService, JwtStrategy, AuthResolver],
   exports: [AuthService],
 })
 export class AuthModule {}

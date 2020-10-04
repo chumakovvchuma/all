@@ -1,17 +1,19 @@
 import {Test, TestingModule} from "@nestjs/testing";
-import {TypeOrmModule} from "@nestjs/typeorm";
 import {JwtModule} from "@nestjs/jwt";
+import {TypeOrmModule} from "@nestjs/typeorm";
+import {PassportModule} from "@nestjs/passport";
 
-import {AuthService} from "./auth.service";
-import {UserModule} from "../user/user.module";
+import {AuthResolver} from "./auth.resolver";
 import {AuthEntity} from "./auth.entity";
+import {UserModule} from "../user/user.module";
+import {AuthService} from "./auth.service";
 import {accessTokenExpiresIn} from "./auth.constants";
 import {JwtStrategy} from "./strategies";
 import {TypeOrmConfigService} from "../typeorm.options";
 
 
-describe("AuthService", () => {
-  let service: AuthService;
+describe("AuthResolver", () => {
+  let resolver: AuthResolver;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -21,6 +23,7 @@ describe("AuthService", () => {
         }),
         TypeOrmModule.forFeature([AuthEntity]),
         UserModule,
+        PassportModule,
         JwtModule.register({
           secret: process.env.JWT_SECRET_KEY,
           signOptions: {
@@ -28,13 +31,13 @@ describe("AuthService", () => {
           },
         }),
       ],
-      providers: [AuthService, JwtStrategy],
+      providers: [AuthService, JwtStrategy, AuthResolver],
     }).compile();
 
-    service = module.get<AuthService>(AuthService);
+    resolver = module.get<AuthResolver>(AuthResolver);
   });
 
   it("should be defined", () => {
-    expect(service).toBeDefined();
+    expect(resolver).toBeDefined();
   });
 });
