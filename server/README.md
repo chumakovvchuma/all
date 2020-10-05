@@ -1,6 +1,21 @@
-npm i
+mutation {
+login(email: "trejgun@gmail.com", password: "My5up3r5tr0ngP@55w0rd") {
+accessToken
+refreshToken
+accessTokenExpiresAt
+refreshTokenExpiresAt
+}
+}
 
-#### for test
+# GraphQL + JWT based authorization for Nest.js
+
+This is a code sample for my [article](https://trejgun.github.io/articles/graphql-based-authorization-for-nestjs)
+
+## Manual installation
+
+I assume you have node, yarn/npm and postgres
+
+First of all you have to download dependencies
 
 ```bash
 npm i
@@ -27,17 +42,24 @@ npm run prod
 
 ## Docker
 
+Otherwise you can use docker
+
 ```shell script
 docker-compose up --build
 ```
 
+## Usage
+
+You can log in to the application using **trejgun@gmail.com/My5up3r5tr0ngP@55w0rd** by executing this CURL request
+
 ```bash
 curl \
 -X POST http://127.0.0.1:3000/graphql \
--d '{"query":"mutation {\n  login(email: \"v.chumakovv@gmail.com\", password: \"chumakovv\") {\n    accessToken\n    refreshToken\n    accessTokenExpiresAt\n    refreshTokenExpiresAt\n  }\n}\n"}' \
+-d '{"query":"mutation {\n  login(email: \"trejgun@gmail.com\", password: \"My5up3r5tr0ngP@55w0rd\") {\n    accessToken\n    refreshToken\n    accessTokenExpiresAt\n    refreshTokenExpiresAt\n  }\n}\n"}' \
 -H "Content-Type: application/json"
 ```
 
+c383d566-8ab8-488b-9844-9d348236b6e5
 This will give you accessToken
 
 ```json
@@ -101,7 +123,7 @@ curl \
 This will return your profile
 
 ```json
-{"data": {"profile": {"id": 1, "email": "v.chumakovv@gmail.com", "roles": ["Admin"]}}}
+{"data": {"profile": {"id": 1, "email": "trejgun@gmail.com", "roles": ["Admin"]}}}
 ```
 
 ```bash
@@ -115,5 +137,17 @@ curl \
 This will return a list of users
 
 ```json
-{"data": {"listUsers": {"list": [{"id": 1, "email": "v.chumakovv@gmail.com", "roles": ["Admin"]}], "count": 1}}}
+{"data": {"listUsers": {"list": [{"id": 1, "email": "trejgun@gmail.com", "roles": ["Admin"]}], "count": 1}}}
 ```
+
+{"query":"mutation {\n login(email: \"trejgun@gmail.com\", password: \"My5up3r5tr0ngP@55w0rd\") {\n accessToken\n refreshToken\n accessTokenExpiresAt\n refreshTokenExpiresAt\n }\n}\n"}
+{
+"data": {
+"login": {
+"accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRyZWpndW5AZ21haWwuY29tIiwiaWF0IjoxNjAxODkyNjY0LCJleHAiOjE2MDE4OTI5NjR9.mTKdIBpH9_nEhWBpYt-EFH8CffgFvY-sAWF_suWjN-k",
+"refreshToken": "a85fe7b2-4e92-4933-8711-bfc77598fb9f",
+"accessTokenExpiresAt": 1601892964407,
+"refreshTokenExpiresAt": 1604484664407
+}
+}
+}
