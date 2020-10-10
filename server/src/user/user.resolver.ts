@@ -1,11 +1,13 @@
-import {Query, Resolver} from "@nestjs/graphql";
+import {Query, Resolver, Subscription} from "@nestjs/graphql";
 import {User, Roles} from "../common/decorators";
 import {UserRole} from "./interfaces";
 
 import {UserEntity} from "./user.entity";
 import {UserService} from "./user.service";
 import {UserListType, UserType} from "./types";
+import {PubSub} from "graphql-subscriptions";
 
+const pubSub = new PubSub();
 
 @Resolver()
 export class UserResolver {
@@ -22,4 +24,8 @@ export class UserResolver {
     return this.userService.findAndCount().then(([list, count]) => ({list, count}));
   }
 
+  @Subscription(_returns => [UserType])
+  userAdded() {
+    return pubSub.asyncIterator("userAdded");
+  }
 }

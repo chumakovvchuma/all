@@ -21,6 +21,10 @@ type Query {
   listUsers: UserListType!
 }
 
+type Subscription {
+  userAdded: [UserType!]!
+}
+
 input UserCreateInputType {
   email: String!
   password: String!

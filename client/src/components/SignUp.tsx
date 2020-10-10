@@ -25,7 +25,7 @@ interface SignUpProps {
     match: any;
 }
 
-const SignUp: React.SFC<SignUpProps> = props => {
+const SignUp: React.SFC<SignUpProps> = (props) => {
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
@@ -35,7 +35,12 @@ const SignUp: React.SFC<SignUpProps> = props => {
                 <Col>
                     <Mutation
                         mutation={SIGNUP_MUTATION}
-                        onCompleted={data => {
+                        onCompleted={(data: {
+                            signup: {
+                                token: string;
+                                user: { email: any; id: any; name: any };
+                            };
+                        }) => {
                             localStorage.setItem(
                                 'auth-token',
                                 data.signup.token
@@ -49,7 +54,16 @@ const SignUp: React.SFC<SignUpProps> = props => {
                             props.history.push(`/dashboard`);
                         }}
                     >
-                        {(signupMutation, { loading, error, data }) => {
+                        {(
+                            signupMutation: (arg0: {
+                                variables: {
+                                    name: string;
+                                    email: string;
+                                    password: string;
+                                };
+                            }) => void,
+                            { loading, error, data }: any
+                        ) => {
                             return (
                                 <>
                                     <Form
@@ -73,7 +87,7 @@ const SignUp: React.SFC<SignUpProps> = props => {
                                                 type="text"
                                                 name="name"
                                                 value={name}
-                                                onChange={e =>
+                                                onChange={(e) =>
                                                     setName(e.target.value)
                                                 }
                                             />
@@ -85,7 +99,7 @@ const SignUp: React.SFC<SignUpProps> = props => {
                                                 type="email"
                                                 name="email"
                                                 value={email}
-                                                onChange={e =>
+                                                onChange={(e) =>
                                                     setEmail(e.target.value)
                                                 }
                                             />
@@ -99,7 +113,7 @@ const SignUp: React.SFC<SignUpProps> = props => {
                                                 id="password"
                                                 type="password"
                                                 value={password}
-                                                onChange={e =>
+                                                onChange={(e) =>
                                                     setPassword(e.target.value)
                                                 }
                                             />

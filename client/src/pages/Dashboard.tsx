@@ -33,6 +33,16 @@ class Dashboard extends React.Component<{}, IState> {
                             </Box>
                         </Col>
                     </Row>
+                    <Row>
+                        <Col>
+                            <Box
+                                height={1}
+                                p={5}
+                                borderRadius={6}
+                                boxShadow="0 2px 16px rgba(0, 0, 0, 0.25)"
+                            ></Box>
+                        </Col>
+                    </Row>
                 </Grid>
             </div>
         );

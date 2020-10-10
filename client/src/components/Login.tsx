@@ -11,12 +11,10 @@ import store from 'store';
 const LOGIN_MUTATION = gql`
     mutation Login($email: String!, $password: String!) {
         login(email: $email, password: $password) {
-            user {
-                name
-                email
-                id
-            }
-            token
+            accessToken
+            refreshToken
+            accessTokenExpiresAt
+            refreshTokenExpiresAt
         }
     }
 `;
@@ -38,16 +36,16 @@ const Login: React.SFC<LoginProps> = (props) => {
                         mutation={LOGIN_MUTATION}
                         onCompleted={(data: {
                             login: {
-                                token: string;
+                                accessToken: string;
                                 user: { email: any; id: any };
                             };
                         }) => {
                             localStorage.setItem(
                                 'auth-token',
-                                data.login.token
+                                data.login.accessToken
                             );
                             store.set('user', {
-                                email: data.login.user.email,
+                                // email: data.login.user.email,
                                 id: data.login.user.id,
                             });
                             // TODO: route this to /

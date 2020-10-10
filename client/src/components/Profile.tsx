@@ -7,11 +7,11 @@ import { Grid, Row, Col, Box, Alert } from '@smooth-ui/core-sc';
 import { List as LoadingList } from 'react-content-loader';
 
 const QUERY = gql`
-    query me {
-        me {
-            name
-            email
+    query profile {
+        listUser {
             id
+            email
+            post
         }
     }
 `;
@@ -30,31 +30,7 @@ export default () => {
                         flexDirection="column"
                         justifyContent="space-between"
                         borderRadius={7}
-                    >
-                        <Query query={QUERY}>
-                            {({ loading, error, data }) => {
-                                if (loading) return <LoadingList />;
-                                if (error) {
-                                    return (
-                                        <Alert variant="danger" mb={1}>
-                                            Something went wrong, please try
-                                            again.
-                                        </Alert>
-                                    );
-                                }
-
-                                return (
-                                    data && (
-                                        <div>
-                                            <h2>Name: {data.me.name}</h2>
-                                            <h2>Email: {data.me.email}</h2>
-                                            <h2 />
-                                        </div>
-                                    )
-                                );
-                            }}
-                        </Query>
-                    </Box>
+                    ></Box>
                 </Col>
             </Row>
         </Grid>

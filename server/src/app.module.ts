@@ -1,3 +1,5 @@
+import {CommentModule} from "./comment/comment.module";
+import {PostModule} from "./post/post.module";
 import {Module} from "@nestjs/common";
 import {TypeOrmModule} from "@nestjs/typeorm";
 import {APP_GUARD, APP_PIPE} from "@nestjs/core";
@@ -26,6 +28,8 @@ import {CustomValidationPipe} from "./common/pipes";
     },
   ],
   imports: [
+    CommentModule,
+    PostModule,
     TypeOrmModule.forRootAsync({
       useClass: TypeOrmConfigService,
     }),
