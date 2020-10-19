@@ -2,6 +2,22 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type UserListType {
+  list: [UserType!]!
+  count: Float!
+}
+
+type UserType {
+  id: Int!
+  email: String!
+  roles: [UserRole!]!
+}
+
+enum UserRole {
+  User
+  Admin
+}
+
 type AuthType {
   accessToken: String!
   refreshToken: String!
@@ -9,20 +25,17 @@ type AuthType {
   refreshTokenExpiresAt: Float!
 }
 
-type Mutation {
-  login(password: String!, email: String!): AuthType!
-  refreshToken(refreshToken: String!): AuthType!
-  logout(refreshToken: String!): Boolean!
-  signup(input: UserCreateInputType!): AuthType!
-}
-
 type Query {
   profile: UserType!
   listUsers: UserListType!
 }
 
-type Subscription {
-  userAdded: [UserType!]!
+type Mutation {
+  addUser(userId: Int!): [UserType!]!
+  login(password: String!, email: String!): AuthType!
+  refreshToken(refreshToken: String!): AuthType!
+  logout(refreshToken: String!): Boolean!
+  signup(input: UserCreateInputType!): AuthType!
 }
 
 input UserCreateInputType {
@@ -31,18 +44,6 @@ input UserCreateInputType {
   roles: [UserRole!]!
 }
 
-type UserListType {
-  list: [UserType!]!
-  count: Float!
-}
-
-enum UserRole {
-  User
-  Admin
-}
-
-type UserType {
-  id: Int!
-  email: String!
-  roles: [UserRole!]!
+type Subscription {
+  userAdded: [UserType!]!
 }

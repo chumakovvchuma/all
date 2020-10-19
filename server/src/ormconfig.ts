@@ -1,20 +1,22 @@
 import "./env";
 import {SnakeNamingStrategy} from "typeorm-naming-strategies";
 import {ConnectionOptions} from "typeorm";
+import {PostEntity} from "./post/post.entity";
+import {Comment} from "./post/comment.type";
 
 // Check typeORM documentation for more information.
 const config: ConnectionOptions = {
   name: "default",
   type: "postgres",
   url: process.env.POSTGRES_URL,
-  entities: [`${__dirname}/**/*.entity{.ts,.js}`],
+  entities: [`${__dirname}/**/*.entity{.ts,.js}`, PostEntity, Comment],
   // We are using migrations, synchronize should be set to false.
   synchronize: false,
   // Run migrations automatically,
   // you can disable this if you prefer running migration manually.
   migrationsRun: process.env.NODE_ENV !== "production",
   namingStrategy: new SnakeNamingStrategy(),
-  logging: process.env.NODE_ENV === "development",
+  logging: true,
   // logger: 'file',
   // Allow both start:prod and start:dev to use migrations
   // __dirname is either dist or src folder, meaning either

@@ -1,4 +1,3 @@
-import {CommentModule} from "./comment/comment.module";
 import {PostModule} from "./post/post.module";
 import {Module} from "@nestjs/common";
 import {TypeOrmModule} from "@nestjs/typeorm";
@@ -11,9 +10,17 @@ import {TypeOrmConfigService} from "./typeorm.options";
 import {GqlConfigService} from "./graphql.options";
 import {JwtGuard, RolesGuard} from "./common/guards";
 import {CustomValidationPipe} from "./common/pipes";
+import {TypeGraphQLModule} from "typegraphql-nestjs";
+import {PubSub} from "graphql-subscriptions";
+import {PostResolver} from "./post/post.resolver";
 
 @Module({
   providers: [
+    PostResolver,
+    {
+      provide: "PUB_SUB",
+      useValue: new PubSub(),
+    },
     {
       provide: APP_PIPE,
       useClass: CustomValidationPipe,
@@ -28,16 +35,16 @@ import {CustomValidationPipe} from "./common/pipes";
     },
   ],
   imports: [
-    CommentModule,
-    PostModule,
     TypeOrmModule.forRootAsync({
       useClass: TypeOrmConfigService,
     }),
     GraphQLModule.forRootAsync({
       useClass: GqlConfigService,
     }),
+
     AuthModule,
     UserModule,
+    PostModule,
   ],
 })
 export class ApplicationModule {}

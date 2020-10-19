@@ -14,4 +14,7 @@ export class PostEntity extends BaseEntity implements IPost {
 
   @Column()
   public comment: string;
+  comments: any;
 }
+
+

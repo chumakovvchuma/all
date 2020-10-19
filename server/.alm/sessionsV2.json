@@ -1,0 +1,25 @@
+{
+  "sessions": [
+    {
+      "id": "c1275ed4-c380-454a-9e28-f69c3a578f38",
+      "tabLayout": {
+        "type": "stack",
+        "width": 100,
+        "height": 100,
+        "tabs": [
+          {
+            "id": "dbfffe41-c511-4649-bb48-fe7e9a263b74",
+            "relativeUrl": "file://./src/post/post.resolver.ts",
+            "additionalData": null
+          }
+        ],
+        "subItems": [],
+        "activeItemIndex": 0
+      },
+      "lastUsed": 1602569196987,
+      "fileTreeExpanded": true,
+      "selectedTabId": "dbfffe41-c511-4649-bb48-fe7e9a263b74"
+    }
+  ],
+  "relativePathToTsconfig": "./tsconfig.json"
+}

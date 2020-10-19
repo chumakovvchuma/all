@@ -7,7 +7,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
   createTypeOrmOptions(): TypeOrmModuleOptions {
     return {
       ...ormconfig,
-      keepConnectionAlive: process.env.NODE_ENV === "test",
+      keepConnectionAlive: process.env.NODE_ENV === "development",
     };
   }
 }

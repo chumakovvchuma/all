@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "alwaysStrict": true,
+    "alwaysStrict": false,
     "declaration": true,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
@@ -9,10 +9,10 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "noImplicitAny": true,
-    "noImplicitReturns": true,
+    "noImplicitReturns": false,
     "noImplicitThis": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "outDir": "./dist",
     "resolveJsonModule": true,
     "rootDir": "./src",

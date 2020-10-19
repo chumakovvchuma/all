@@ -1,3 +1,4 @@
+import {ConnectionOptions} from "typeorm";
 import {Request, Response} from "express";
 import {Injectable} from "@nestjs/common";
 import {GqlOptionsFactory, GqlModuleOptions} from "@nestjs/graphql";
@@ -8,12 +9,12 @@ export class GqlConfigService implements GqlOptionsFactory {
     return {
       installSubscriptionHandlers: true,
       debug: process.env.NODE_ENV !== "production",
-      playground: process.env.NODE_ENV !== "production",
+      playground: true,
       context: ({req, res}: {req: Request; res: Response}): any => ({req, res}),
       autoSchemaFile: "./schema.gql",
       cors: true,
       subscriptions: {
-        keepAlive: 5000,
+        path: "/subscriptions",
       },
     };
   }

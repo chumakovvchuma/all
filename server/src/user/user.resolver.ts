@@ -1,6 +1,6 @@
-import {Query, Resolver, Subscription} from "@nestjs/graphql";
+import {Args, Int, Mutation, Query, Resolver, Subscription} from "@nestjs/graphql";
 import {User, Roles} from "../common/decorators";
-import {UserRole} from "./interfaces";
+import {IUser, UserRole} from "./interfaces";
 
 import {UserEntity} from "./user.entity";
 import {UserService} from "./user.service";
@@ -27,5 +27,12 @@ export class UserResolver {
   @Subscription(_returns => [UserType])
   userAdded() {
     return pubSub.asyncIterator("userAdded");
+  }
+
+  @Mutation(returns => [UserType])
+  async addUser(@Args("userId", {type: () => Int}) userId: number) {
+    const newUser = this.userAdded();
+    pubSub.publish("userAdded", {userAdded: newUser});
+    return newUser;
   }
 }
