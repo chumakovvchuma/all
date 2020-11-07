@@ -1,19 +1,15 @@
-import {IPost} from "./interfaces";
-import {UserEntity} from "../user/user.entity";
+// import {IPost} from "./interfaces";
+// import {UserEntity} from "../user/user.entity";
+// import { UserType } from "../user/types/user";
+// import { Author } from "./author.model";
 
-export default function createPost(): IPost[] {
-  return [
-    {
-      id: 1,
-      text: "testpost",
-      author: UserEntity.profile.email("v.chumakovv@gmail.com"),
-      comment: "test comment",
-    },
-    {
-      id: 2,
-      text: "testpost",
-      author: UserEntity.profile.email("vchumakovv@getMaxListeners.com"),
-      comment: "test comment",
-    },
-  ];
-}
+// export default function createPost(): IPost[] {
+//   return [
+//     {
+//       id: 1,
+//       text: "testpost",
+//       author: Author[email: "test"],
+//       comment: "test comment",
+//     },
+//   ];
+// }

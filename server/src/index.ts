@@ -3,10 +3,13 @@ import passport from "passport";
 import {NestFactory} from "@nestjs/core";
 import {NestExpressApplication} from "@nestjs/platform-express";
 
+import {WsAdapter} from "@nestjs/platform-ws";
+
 import {ApplicationModule} from "./app.module";
 
 async function bootstrap(): Promise<void> {
-  const app = await NestFactory.create<NestExpressApplication>(ApplicationModule);
+  const app = await NestFactory.create(ApplicationModule);
+  app.enableCors();
 
   app.use(passport.initialize());
 

@@ -3,6 +3,7 @@ import {ID, Field, ObjectType, registerEnumType} from "type-graphql";
 import {BaseEntity, Column, Entity, PrimaryGeneratedColumn} from "typeorm";
 // import {Field, ObjectType, registerEnumType, } from "@nestjs/graphql";
 import {IUser, UserRole} from "./interfaces";
+import {UserType} from "./types/user";
 
 registerEnumType(UserRole, {
   name: "UserRole",
@@ -28,5 +29,5 @@ export class UserEntity extends BaseEntity implements IUser {
     default: [UserRole.User],
   })
   public roles: UserRole[];
-  static profile: any;
+  static profile: UserType[];
 }

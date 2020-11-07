@@ -37,7 +37,7 @@ const Login: React.SFC<LoginProps> = (props) => {
                         onCompleted={(data: {
                             login: {
                                 accessToken: string;
-                                user: { email: any; id: any };
+                                user: { email: any };
                             };
                         }) => {
                             localStorage.setItem(
@@ -46,7 +46,7 @@ const Login: React.SFC<LoginProps> = (props) => {
                             );
                             store.set('user', {
                                 // email: data.login.user.email,
-                                id: data.login.user.id,
+                                // id: data.login.user.id,
                             });
                             // TODO: route this to /
                             props.history.push(`/dashboard`);

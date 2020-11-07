@@ -10,6 +10,7 @@ import { ApolloClient } from 'apollo-client';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { setContext } from 'apollo-link-context';
+import { WebSocketLink } from '@apollo/client/link/ws';
 
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
 process.env.NODE_ENV === 'development' &&
@@ -17,6 +18,13 @@ process.env.NODE_ENV === 'development' &&
 
 const httpLink = createHttpLink({
     uri: backendUrl,
+});
+
+const wsLink = new WebSocketLink({
+    uri: `ws://localhost:5000/`,
+    options: {
+        reconnect: true,
+    },
 });
 
 const authLink = setContext((_, { headers }) => {

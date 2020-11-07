@@ -13,6 +13,7 @@ import {CustomValidationPipe} from "./common/pipes";
 import {TypeGraphQLModule} from "typegraphql-nestjs";
 import {PubSub} from "graphql-subscriptions";
 import {PostResolver} from "./post/post.resolver";
+import {AuthorModule} from "./post/author.module";
 
 @Module({
   providers: [
@@ -45,6 +46,7 @@ import {PostResolver} from "./post/post.resolver";
     AuthModule,
     UserModule,
     PostModule,
+    AuthorModule,
   ],
 })
 export class ApplicationModule {}

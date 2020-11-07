@@ -1,7 +1,9 @@
 import {Field, Int, ObjectType} from "@nestjs/graphql";
+import {UserType} from "../../user/types/user";
+import {Author} from "../author.model";
 import {IPost} from "../interfaces";
 
-@ObjectType()
+@ObjectType("post")
 export class PostType implements IPost {
   @Field(_type => Int)
   public id: number;
@@ -9,7 +11,7 @@ export class PostType implements IPost {
   @Field()
   public text: string;
 
-  public author: string;
+  public author: Author[];
 
   @Field()
   public comment: string;

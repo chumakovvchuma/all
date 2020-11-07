@@ -7,14 +7,12 @@ import { withRouter, Link } from 'react-router-dom';
 import store from 'store';
 
 const SIGNUP_MUTATION = gql`
-    mutation Signup($email: String!, $password: String!, $name: String!) {
-        signup(email: $email, name: $name, password: $password) {
-            user {
-                name
-                email
-                id
-            }
-            token
+    mutation Signup($email: String!, $password: String!) {
+        signup(input: { email: $email, password: $password, roles: User }) {
+            accessToken
+            refreshToken
+            accessTokenExpiresAt
+            refreshTokenExpiresAt
         }
     }
 `;
@@ -27,7 +25,6 @@ interface SignUpProps {
 
 const SignUp: React.SFC<SignUpProps> = (props) => {
     const [email, setEmail] = useState('');
-    const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     return (
         <Container>
@@ -37,18 +34,17 @@ const SignUp: React.SFC<SignUpProps> = (props) => {
                         mutation={SIGNUP_MUTATION}
                         onCompleted={(data: {
                             signup: {
-                                token: string;
-                                user: { email: any; id: any; name: any };
+                                accessToken: string;
+                                user: { email: any; password: any };
                             };
                         }) => {
                             localStorage.setItem(
                                 'auth-token',
-                                data.signup.token
+                                data.signup.accessToken
                             );
                             store.set('user', {
                                 email: data.signup.user.email,
-                                id: data.signup.user.id,
-                                name: data.signup.user.name,
+                                password: data.signup.user.password,
                             });
 
                             props.history.push(`/dashboard`);
@@ -57,7 +53,6 @@ const SignUp: React.SFC<SignUpProps> = (props) => {
                         {(
                             signupMutation: (arg0: {
                                 variables: {
-                                    name: string;
                                     email: string;
                                     password: string;
                                 };
@@ -71,7 +66,6 @@ const SignUp: React.SFC<SignUpProps> = (props) => {
                                             e.preventDefault();
                                             signupMutation({
                                                 variables: {
-                                                    name,
                                                     email,
                                                     password,
                                                 },
@@ -79,19 +73,6 @@ const SignUp: React.SFC<SignUpProps> = (props) => {
                                         }}
                                     >
                                         <h3>Please create an account.</h3>
-                                        <FormGroup>
-                                            <Label for="name">Name</Label>
-                                            <Input
-                                                id="name"
-                                                className={''}
-                                                type="text"
-                                                name="name"
-                                                value={name}
-                                                onChange={(e) =>
-                                                    setName(e.target.value)
-                                                }
-                                            />
-                                        </FormGroup>
                                         <FormGroup>
                                             <Label for="email">Email</Label>
                                             <Input

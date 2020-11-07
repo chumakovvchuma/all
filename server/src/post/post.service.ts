@@ -7,6 +7,9 @@ import {PostEntity} from "./post.entity";
 
 @Injectable()
 export class PostService {
+  findAll(arg0: {authorId: number}) {
+    throw new Error("Method not implemented.");
+  }
   constructor(
     @InjectRepository(PostEntity)
     private readonly postEntityRepository: Repository<PostEntity>,
